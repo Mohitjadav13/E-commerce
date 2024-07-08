@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Form</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-group label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h2 class="card-title text-center mb-4">Order Form</h2>
+            <form id="orderForm" action="/submit-order" method="post">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" class="form-control" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Enter 10-digit mobile number" required>
+                    <small class="text-muted">Format: 1234567890</small>
+                </div>
+                <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="product">Product</label>
+                    <select class="form-control" id="product" name="product" required>
+                        <option value="">Select a product</option>
+                        <option value="Apple I Phone 15">Apple I Phone 15</option>
+                        <option value="Samsung Galaxy S24 Ultra">Samsung Galaxy S24 Ultra</option>
+                        <option value="Samsung Galaxy Z Fold 5">Samsung Galaxy Z Fold 5</option>
+                        <option value="Google Pixel 8 Pro">Google Pixel 8 Pro</option>
+                        <option value="Onepluse 12">Onepluse 12</option>
+                        <option value="Vivo X100 Pro">Vivo X100 Pro</option>
+                        <option value="OPPO Find N3 Flip">OPPO Find N3 Flip</option>
+                        <option value="iqoo 12(5G)">iqoo 12(5G)</option>
+                        <option value="Apple I Phone 15 pro max">Apple I Phone 15 pro max</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" class="form-control" id="quantity" name="quantity" min="1" required>
+                </div>
+                <div class="form-group">
+                    <label for="totalPrice">Total Price</label>
+                    <input type="text" class="form-control" id="totalPrice" name="totalPrice" readonly>
+                </div>
+                <div class="form-group text-center">
+                    <button type="submit" class="btn btn-primary">Place Order</button>
+                </div>
+                <!-- Hidden field to store product name -->
+                <input type="hidden" id="productName" name="productName">
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS and dependencies (jQuery and Popper.js) -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Function to format phone number in Indian format as the user types
+    document.getElementById('phone').addEventListener('input', function(event) {
+        let phoneNumber = event.target.value;
+        // Remove any non-numeric characters
+        phoneNumber = phoneNumber.replace(/\D/g, '');
+        // Check if the length of the number is greater than 10
+        if (phoneNumber.length > 10) {
+            // Trim the number to 10 digits
+            phoneNumber = phoneNumber.slice(0, 10);
+        }
+        // Format the number as per Indian format
+        phoneNumber = phoneNumber.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
+        // Update the input field value
+        event.target.value = phoneNumber;
+    });
+
+    // Function to calculate total price based on selected product and quantity
+    document.getElementById('orderForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        // Get selected product and quantity
+        const productName = document.getElementById('product').value;
+        const quantity = parseInt(document.getElementById('quantity').value);
+
+        // Calculate total price based on selected product and quantity
+        let totalPrice = 0;
+        switch (productName) {
+            case 'Apple I Phone 15':
+                totalPrice = 70990 * quantity;
+                break;
+            case 'Samsung Galaxy S24 Ultra':
+                totalPrice = 129999 * quantity;
+                break;
+            case 'Samsung Galaxy Z Fold 5':
+                totalPrice = 154999 * quantity;
+                break;
+            case 'Google Pixel 8 Pro':
+                totalPrice = 98999 * quantity;
+                break;
+            case 'Onepluse 12':
+                totalPrice = 64000 * quantity;
+                break;
+            case 'Vivo X100 Pro':
+                totalPrice = 89999 * quantity;
+                break;
+            case 'OPPO Find N3 Flip':
+                totalPrice = 74999 * quantity;
+                break;
+            case 'iqoo 12(5G)':
+                totalPrice = 70990 * quantity;
+                break;
+            case 'Apple I Phone 15 pro max':
+                totalPrice = 148900 * quantity;
+                break;
+            default:
+                totalPrice = 0;
+        }
+
+        // Update hidden field with product name and display total price
+        document.getElementById('productName').value = productName;
+        document.getElementById('totalPrice').value = totalPrice.toFixed(2);
+
+        // Uncomment to submit the form programmatically
+        // event.target.submit();
+    });
+</script>
+
+</body>
+</html>
