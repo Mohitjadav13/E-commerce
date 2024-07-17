@@ -15,10 +15,10 @@
     </style>
 </head>
 <body >
-    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top " >
+    <nav class="navbar navbar-expand-lg navbar-light bg-secondary fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Navbar</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -28,10 +28,10 @@
                         <a class="nav-link active" aria-current="page" href="index.html">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="product.html">products</a>
+                        <a class="nav-link" href="product.html">Products</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contactus.html">contact us</a>
+                        <a class="nav-link" href="contactus.html">Contact Us</a>
                     </li>
                 </ul>
             </div>
@@ -84,38 +84,63 @@
         <footer class="py-3 my-4">
           <ul class="nav justify-content-center border-bottom pb-3 mb-3">
             <li class="nav-item"><a href="index.html" class="nav-link px-2 text-body-secondary">Home</a></li>
-            <li class="nav-item"><a href="contactus.html" class="nav-link px-2 text-body-secondary">contact us</a></li>
-           
+            <li class="nav-item"><a href="contactus.html" class="nav-link px-2 text-body-secondary">Contact Us</a></li>
           </ul>
           <p class="text-center text-body-secondary">© 2024 Company, Inc</p>
         </footer>
       </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $("#buyNowForm").submit(function (event) {
-                event.preventDefault();
-                var fullName = $("#fullName").val();
-                var address = $("#address").val();
-                var city = $("#city").val();
-                var zipCode = $("#zipCode").val();
-                var cardNumber = $("#cardNumber").val();
-                var expiryDate = $("#expiryDate").val();
-                var cvv = $("#cvv").val();
-                var alertBox = $("#alert");
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.getElementById('buyNowForm');
+            var alertBox = document.getElementById('alert');
 
-                if (fullName && address && city && zipCode && cardNumber && expiryDate && cvv) {
-                    alertBox.removeClass("alert-danger");
-                    alertBox.addClass("alert-success");
-                    alertBox.text("Thank you for your purchase! Your order is being processed.");
-                } else {
-                    alertBox.removeClass("alert-success");
-                    alertBox.addClass("alert-danger");
-                    alertBox.text("Please fill out all fields.");
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                var fullName = document.getElementById('fullName').value;
+                var address = document.getElementById('address').value;
+                var city = document.getElementById('city').value;
+                var zipCode = document.getElementById('zipCode').value;
+                var cardNumber = document.getElementById('cardNumber').value;
+                var expiryDate = document.getElementById('expiryDate').value;
+                var cvv = document.getElementById('cvv').value;
+
+                // Regular expression patterns for validation
+                var namePattern = /^[a-zA-Z\s]+$/;
+                var zipPattern = /^\d{6}$/;
+                var cardPattern = /^\d{16}$/;
+                var cvvPattern = /^\d{3}$/;
+
+                // Validation checks
+                if (!namePattern.test(fullName)) {
+                    showAlert('Please enter a valid name (letters and spaces only).', 'danger');
+                    return;
+                }
+                if (!zipPattern.test(zipCode)) {
+                    showAlert('Please enter a valid ZIP code (6 digits).', 'danger');
+                    return;
+                }
+                if (!cardPattern.test(cardNumber)) {
+                    showAlert('Please enter a valid card number (16 digits).', 'danger');
+                    return;
+                }
+                if (!cvvPattern.test(cvv)) {
+                    showAlert('Please enter a valid CVV (3 digits).', 'danger');
+                    return;
                 }
 
-                alertBox.show();
+                if (fullName && address && city && zipCode && cardNumber && expiryDate && cvv) {
+                    showAlert('Thank you for your purchase! Your order is being processed.', 'success');
+                } else {
+                    showAlert('Please fill out all fields.', 'danger');
+                }
             });
+
+            function showAlert(message, type) {
+                alertBox.className = 'alert mt-3 alert-' + type;
+                alertBox.textContent = message;
+                alertBox.style.display = 'block';
+            }
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
