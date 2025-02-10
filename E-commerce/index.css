@@ -1,0 +1,80 @@
+.container-fluid::-webkit-scrollbar{ width: 0 !important }
+.container{
+    margin-top: 80px;
+}
+.carousel-inner{
+    margin-top: 80px;
+}
+.carousel-item{
+   width: 97%;
+   height: auto;
+   
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.card-body .btn {
+    margin-top: auto;
+}
+
+
+.card:hover {
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.1);
+}
+/* PDP */
+
+.img-fluid:hover{
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+    
+}
+.img-thumbnail:hover{
+    transform: scale(1.05);
+    transition: transform 0.5s ease;
+
+}
+
+.price-container {
+    display: flex;
+    align-items: center;
+}
+
+.text {
+    margin-left: 10px;
+    margin-bottom: 0;
+    text-decoration: line-through;
+    color: grey;
+}
+.discount{
+    margin-left: 10px;
+    margin-bottom: 0;
+    color: green;
+}
+h5{
+    margin-top: 15px;
+    color: grey;
+}
+.img-thumbnail {
+    max-width: 100%;
+    height: auto;
+}
+
+.product-details {
+    padding-left: 15px; /* Add some padding to the product details */
+}
+
+
+
